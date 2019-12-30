@@ -3,6 +3,8 @@ function sendMessage(req_data) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", 'messages/', true)
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    csrftoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
     xhr.send(json);
     xhr.addEventListener("readystatechange", () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -21,7 +23,8 @@ function validateForm(form) {
     formData.forEach(function (value, key) {
         if (!value)
             verify = false;
-        objects[key] = value;
+        if (key !== 'csrfmiddlewaretoken')
+            objects[key] = value;
     });
     return verify ? objects : false;
 
@@ -57,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('send_message').addEventListener('submit', function (event) {
         event.preventDefault();
         data = validateForm(this);
-        this.elements[0].value="";
+        this.getElementsByTagName('textarea')[0].value = "";
         if (data)
             sendMessage(data);
     });

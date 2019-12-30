@@ -11,16 +11,16 @@
     <h1>Microblog</h1>
 </div>
 <div class="content">
-    <div class="message_list" id = "message_list">
-{#        {% for message in  messages %}#}
-{#            <div class="message">#}
-{#                <div class="text">{{ message.text }}</div>#}
-{#                <div class="message_date">{{ message.date }}</div>#}
-{#            </div>#}
-{#        {% endfor %}#}
+    <div class="message_list" id="message_list">
+        {#        {% for message in  messages %}#}
+        {#            <div class="message">#}
+        {#                <div class="text">{{ message.text }}</div>#}
+        {#                <div class="message_date">{{ message.date }}</div>#}
+        {#            </div>#}
+        {#        {% endfor %}#}
     </div>
     <div class="input_message">
-        <form id="send_message" action="" method="POST">
+        <form id="send_message" action="" method="POST">{% csrf_token %}
             <textarea name="message" class="message" placeholder="Введите сообщение..."></textarea>
             <input type="submit" value="ОТПРАВИТЬ">
         </form>
